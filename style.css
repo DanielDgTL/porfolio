@@ -1,0 +1,470 @@
+/* ========================
+   1. ESTILOS GLOBALES (Reset y Tipografía)
+========================= */
+
+/* Un "reset" simple para quitar márgenes por defecto */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #333333; /* Texto principal oscuro */
+    line-height: 1.6;
+}
+
+/* Para que las imágenes se ajusten bien */
+img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+a {
+    text-decoration: none; /* Quitamos el subrayado de los enlaces */
+    color: inherit; /* Hereda el color del texto (no será azul) */
+}
+
+/* Contenedor principal para centrar el contenido */
+main, header, footer {
+    /* Limitamos el ancho y lo centramos en la página */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem; /* 2rem de espacio a los lados */
+}
+
+/* ========================
+   2. HEADER / NAVEGACIÓN
+========================= */
+
+header {
+    /* Hacemos un contenedor flexible para alinear el logo y el menú */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, menú a la derecha */
+    align-items: center; /* Centra verticalmente */
+}
+
+.logo {
+    font-size: 1.5rem; /* Tamaño de "Tu Nombre" */
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none; /* Quitamos los puntos de la lista */
+}
+
+nav li {
+    display: inline-block; /* Ponemos los items uno al lado del otro */
+    margin-left: 1.5rem; /* Espacio entre items del menú */
+}
+
+nav a {
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 0; /* Espacio para hacer clic */
+}
+
+/* La clase que pusimos en el HTML para la página activa */
+nav a.activo {
+    border-bottom: 2px solid #333; /* Un subrayado para el item activo */
+}
+
+/* ========================
+   3. LA CUADRÍCULA (GRID) DE PROYECTOS
+========================= */
+
+main#portafolio {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.grid-proyectos {
+    display: grid;
+    
+    /* ¡Esta es la magia! */
+    /* Crea columnas de un mínimo de 300px, y las ajusta (auto-fit) */
+    /* para llenar el espacio (1fr). Si no caben, se van a la línea de abajo. */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    
+    gap: 1.5rem; /* El espacio entre cada proyecto */
+}
+
+/* ========================
+   4. TARJETA DE PROYECTO INDIVIDUAL
+========================= */
+
+.proyecto {
+    position: relative; /* Esencial para posicionar el overlay dentro */
+    display: block;
+    overflow: hidden; /* Asegura que cualquier cosa que se salga de la tarjeta se oculte */
+    cursor: pointer;
+}
+
+.proyecto img {
+    width: 100%;
+    height: 100%; /* La imagen llenará todo el espacio del proyecto */
+    object-fit: cover; /* Recorta la imagen para que encaje sin distorsionarse */
+    transition: transform 0.3s ease-out; /* Suave zoom al pasar el mouse */
+}
+
+/* El contenedor del texto que aparecerá al pasar el mouse */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    display: flex; /* Para centrar el contenido del texto */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    opacity: 0; /* Por defecto, el overlay está invisible */
+    transition: opacity 0.3s ease-out; /* Transición suave de visibilidad */
+}
+
+.proyecto-info {
+    text-align: center;
+    color: #ffffff; /* Texto blanco sobre el overlay oscuro */
+    padding: 1rem;
+    transform: translateY(20px); /* Ligeramente hacia abajo */
+    transition: transform 0.3s ease-out; /* Para que suba al aparecer */
+}
+
+.proyecto-info h3 {
+    font-size: 1.5rem; /* Título más grande para el overlay */
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.proyecto-info p {
+    font-size: 1rem;
+    color: #ffffff; /* La categoría también en blanco */
+}
+
+/* EFECTOS HOVER */
+.proyecto:hover .overlay {
+    opacity: 1; /* Hace visible el overlay */
+}
+
+.proyecto:hover .proyecto-info {
+    transform: translateY(0); /* El texto sube a su posición original */
+}
+
+.proyecto:hover img {
+    transform: scale(1.05); /* Ligeramente más zoom a la imagen */
+}
+
+/* ========================
+   5. FOOTER / PIE DE PÁGINA
+========================= */
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #aaa; /* Un gris muy claro */
+    border-top: 1px solid #f0f0f0; /* Línea sutil de separación */
+}
+
+/* ========================
+   6. PÁGINA DE DETALLE DE PROYECTO
+========================= */
+
+/* Hacemos que el contenido de esta página sea más
+   angosto que el portafolio, para que sea más fácil de leer. */
+   #proyecto-detalle {
+    max-width: 900px; /* Ancho máximo para el texto e imágenes */
+    margin: 2rem auto; /* Centrado en la página */
+}
+
+#proyecto-detalle h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+#proyecto-detalle .metadata {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #777;
+    margin-bottom: 2rem; /* Espacio antes de la descripción */
+}
+
+#proyecto-detalle .descripcion {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem; /* Espacio antes de las imágenes */
+}
+
+/* Estilos para la galería de imágenes del proyecto */
+.galeria-proyecto img {
+    /* Espacio entre cada imagen de la galería */
+    margin-bottom: 1.5rem; 
+}
+/* ========================
+   7. ESTILOS ESPECÍFICOS PARA RESUME (BEHANCE STYLE REAL)
+========================= */
+
+   body {
+    font-family: Helvetica, Arial, sans-serif; /* Fuente limpia estándar */
+    color: #333;
+    background-color: #fff;
+}
+
+.behance-resume-container {
+    max-width: 960px; /* Ancho estándar de Behance */
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+/* --- HEADER DEL RESUME --- */
+.behance-header {
+    margin-bottom: 2rem;
+}
+
+.behance-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #000;
+}
+
+.behance-header h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.behance-header .location {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* --- DIVISORES --- */
+.behance-divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 2.5rem 0;
+}
+
+/* --- ESTRUCTURA DE SECCIÓN (2 COLUMNAS) --- */
+.behance-section {
+    display: grid;
+    grid-template-columns: 200px 1fr; /* Columna izquierda fija, derecha flexible */
+    gap: 2rem;
+}
+
+.section-label h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #333;
+    margin: 0;
+}
+
+/* --- CONTENIDO DE LAS SECCIONES --- */
+.intro-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Estilos para los trabajos */
+.job-item {
+    margin-bottom: 2.5rem;
+}
+
+.company-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0057ff; /* Azul brillante estilo Behance */
+    margin-bottom: 0.2rem;
+}
+
+.job-role {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.job-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.job-meta {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Estilos para idiomas y habilidades */
+.language-item {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.skills-list {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .behance-section {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        gap: 1rem;
+    }
+    
+    .section-label h3 {
+        margin-bottom: 1rem;
+        color: #888; /* Color más sutil para etiquetas en móvil */
+    }
+    
+    .behance-resume-container {
+        margin: 2rem auto;
+    }
+}
+
+/* =========================================
+   ESTILOS DE GALERÍA INTERNA (PROYECTO INDIVIDUAL)
+   ========================================= */
+
+/* Grid de 3 columnas */
+.project-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; /* Espacio entre imágenes */
+    margin-top: 2rem;
+}
+
+/* Contenedor de cada imagen (define el formato 4:5) */
+.gallery-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5; /* ¡Aquí está la clave! Fuerza el formato vertical */
+    overflow: hidden; /* Oculta lo que sobre de la imagen */
+    border-radius: 4px;
+    cursor: zoom-in; /* Icono de lupa al pasar el mouse */
+    background-color: #f0f0f0; /* Fondo de carga */
+}
+
+/* La imagen dentro del cuadro */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Llena el cuadro 4:5 recortando los bordes si es necesario */
+    transition: transform 0.4s ease;
+}
+
+/* Efecto Hover suave */
+.gallery-item:hover img {
+    transform: scale(1.05); /* Zoom sutil */
+    opacity: 0.9;
+}
+
+/* Responsive: En móviles pasamos a 1 o 2 columnas */
+@media (max-width: 768px) {
+    .project-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 480px) {
+    .project-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   ESTILOS DEL VISOR (LIGHTBOX)
+   ========================================= */
+
+.lightbox {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Fondo negro casi sólido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none; /* No bloquea clicks si está invisible */
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto; /* Reactiva los clicks */
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox-image {
+    max-width: 100%;
+    max-height: 90vh; /* Asegura que la imagen completa quepa en pantalla */
+    width: auto; /* Respeta el ancho original */
+    height: auto; /* Respeta el alto original */
+    object-fit: contain; /* Muestra la imagen completa sin recortar nada */
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+    color: #ff4757;
+}
+
+/* =========================================
+   AJUSTE ESPECÍFICO PARA VIDEOS EN GALERÍA
+   ========================================= */
+
+/* Solo afecta a las etiquetas <video> dentro de la galería */
+.gallery-item video {
+    width: 100%;
+    height: 100%;
+    
+    /* CLAVE 1: 'contain' muestra el video entero sin cortar nada */
+    object-fit: contain; 
+    
+    /* CLAVE 2: Fondo negro para rellenar el espacio arriba y abajo (letterbox) */
+    background-color: #000; 
+    
+    transition: transform 0.4s ease;
+}
+
+/* Opcional: Si quieres que al pasar el mouse el video crezca un poco */
+.gallery-item:hover video {
+    transform: scale(1.05);
+}

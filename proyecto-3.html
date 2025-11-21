@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logotipos - Daniel Paz</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Daniel Paz</a>
+            <ul>
+                <li><a href="index.html" class="activo">Trabajo</a></li>
+                <li><a href="sobre-mi.html">Sobre Mí</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="proyecto-detalle">
+
+        <h1>Logotipos</h1>
+        <p class="metadata">Logotipos</p>
+
+        <p class="descripcion">
+            Esta es la descripción del proyecto. Aquí explicas el reto creativo. 
+            A continuación verás la galería de piezas resultantes. Haz clic en cualquier imagen para ampliarla.
+        </p>
+
+        <div class="project-gallery-grid">
+            
+            <div class="gallery-item">
+                <video src="assets/randoms/12.08 STORY VIDEO YA COMENZO.mp4" autoplay muted loop playsinline></video>
+            </div>
+
+            <div class="gallery-item">
+                <video src="assets/randoms/Cyber Kannu_1080x1920.mp4" autoplay muted loop playsinline></video>
+            </div>
+
+            <div class="gallery-item">
+                <video src="assets/randoms/VIDEO_AD_Tiendas_1080x1920.mp4" autoplay muted loop playsinline></video>
+            </div>
+            
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2025 Daniel Paz. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="lightbox-modal" class="lightbox">
+        <span class="close-btn"><i class='bx bx-x'></i></span>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Vista ampliada" style="display: none;">
+            
+            <video id="lightbox-video" controls style="display: none; max-width: 100%; max-height: 90vh;"></video>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Seleccionamos TODO (Imágenes y Videos en la galería)
+            const galleryItems = document.querySelectorAll('.gallery-item img, .gallery-item video');
+            
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-image');
+            const lightboxVid = document.getElementById('lightbox-video');
+            const closeBtn = document.querySelector('.close-btn');
+
+            // Función para abrir
+            const openLightbox = (e) => {
+                e.preventDefault();
+                const clickedElement = e.target;
+                const src = clickedElement.currentSrc || clickedElement.src; // currentSrc es mejor para videos
+
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Bloquear scroll
+
+                // VERIFICAMOS: ¿Es imagen o video?
+                if (clickedElement.tagName === 'IMG') {
+                    // Es IMAGEN
+                    lightboxImg.src = src;
+                    lightboxImg.style.display = 'block';
+                    lightboxVid.style.display = 'none';
+                    lightboxVid.pause(); // Asegurar que el video no suene
+                } else if (clickedElement.tagName === 'VIDEO') {
+                    // Es VIDEO
+                    lightboxVid.src = src;
+                    lightboxVid.style.display = 'block';
+                    lightboxImg.style.display = 'none';
+                    
+                    lightboxVid.load(); // Cargar
+                    lightboxVid.play(); // Reproducir con sonido
+                    lightboxVid.muted = false; // Activar sonido
+                }
+            };
+
+            // Función para cerrar
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // IMPORTANTE: Pausar el video al cerrar
+                lightboxVid.pause();
+                lightboxVid.currentTime = 0;
+                lightboxVid.src = ""; // Limpiar fuente
+            };
+
+            // Asignar eventos
+            galleryItems.forEach(item => {
+                item.addEventListener('click', openLightbox);
+                // Forzar cursor pointer
+                item.parentElement.style.cursor = 'pointer'; 
+            });
+
+            if(closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+            lightbox.addEventListener('click', (e) => {
+                // Si clickea fuera del contenido (en lo negro)
+                if (e.target !== lightboxImg && e.target !== lightboxVid) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+</body>
+</html>

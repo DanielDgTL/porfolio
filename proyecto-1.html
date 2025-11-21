@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre del Proyecto - Daniel Paz</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Daniel Paz</a>
+            <ul>
+                <li><a href="index.html" class="activo">Trabajo</a></li>
+                <li><a href="sobre-mi.html">Sobre Mí</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="proyecto-detalle">
+
+        <h1>Motion Graphics Campaign</h1>
+        <p class="metadata">Categoría: Animación / 3D</p>
+
+        <p class="descripcion">
+            Esta es la descripción del proyecto. Aquí explicas el reto creativo. 
+            A continuación verás la galería de piezas resultantes. Haz clic en cualquier imagen para ampliarla.
+        </p>
+
+        <div class="project-gallery-grid">
+            
+            <div class="gallery-item">
+                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/randoms/Juana-halloween_post_concurso.jpg" alt="Detalle 1">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/randoms/18_AGO_stories.jpg" alt="Detalle 2 (Horizontal original)">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/randoms/Empanada_PancetaCiruela_Stories.jpg" alt="Detalle 3">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/randoms/41b83d88303763.5dd2a47253bed.jpg" alt="Detalle 4">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/randoms/76eed888303763.5dd2a472551b8.jpg" alt="Detalle 5">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/randoms/1664f788303763.5dd2a472542bf.jpg" alt="Detalle 6">
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2025 Daniel Paz. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="lightbox-modal" class="lightbox">
+        <span class="close-btn"><i class='bx bx-x'></i></span>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Vista ampliada">
+        </div>
+    </div>
+
+    <div id="lightbox-modal" class="lightbox">
+        <span class="close-btn"><i class='bx bx-x'></i></span>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Vista ampliada">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Script cargado correctamente"); // Para verificar en consola
+            
+            // 1. Seleccionamos los elementos
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-image');
+            const closeBtn = document.querySelector('.close-btn');
+
+            // 2. Función para abrir
+            const openLightbox = (e) => {
+                e.preventDefault(); // Prevenir cualquier comportamiento extraño
+                const src = e.target.src;
+                console.log("Abriendo imagen:", src); // Verificación
+                
+                lightboxImg.src = src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Bloquear scroll
+            };
+
+            // 3. Función para cerrar
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Reactivar scroll
+            };
+
+            // 4. Asignar eventos (clicks)
+            if (galleryImages.length > 0) {
+                galleryImages.forEach(img => {
+                    img.addEventListener('click', openLightbox);
+                    // Añadimos cursor pointer por si acaso el CSS falló
+                    img.style.cursor = 'pointer'; 
+                });
+            } else {
+                console.error("No se encontraron imágenes con la clase .gallery-item img");
+            }
+
+            // Botón Cerrar
+            if(closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+            // Click fuera de la imagen
+            if(lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target !== lightboxImg) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            // Tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+
+</body> </html>
+
+</body>
+</html>
