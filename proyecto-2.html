@@ -24,7 +24,7 @@
     <main id="proyecto-detalle">
 
         <h1>Logotipos</h1>
-        <p class="metadata">Logotipos</p>
+        <p class="metadata">Branding / Identidad</p>
 
         <p class="descripcion">
             Esta es la descripción del proyecto. Aquí explicas el reto creativo. 
@@ -34,27 +34,27 @@
         <div class="project-gallery-grid">
             
             <div class="gallery-item">
-                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/Logos/3e1cf557190013.59cbf35d49472.jpg" alt="Detalle 1">
+                <img src="assets/Logos/3e1cf557190013.59cbf35d49472.jpg" alt="Logo 1">
             </div>
 
             <div class="gallery-item">
-                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/Logos/9ded8d69928207.5b91c2fd55e34.jpg" alt="Detalle 2 (Horizontal original)">
+                <img src="assets/Logos/9ded8d69928207.5b91c2fd55e34.jpg" alt="Logo 2">
             </div>
 
             <div class="gallery-item">
-                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/Logos/9d59fa56599729.59b57a06cdd97.jpg" alt="Detalle 3">
+                <img src="assets/Logos/9d59fa56599729.59b57a06cdd97.jpg" alt="Logo 3">
             </div>
 
             <div class="gallery-item">
-                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/Logos/29715656333929.59a9d53bcffa6.jpg" alt="Detalle 4">
+                <img src="assets/Logos/29715656333929.59a9d53bcffa6.jpg" alt="Logo 4">
             </div>
 
             <div class="gallery-item">
-                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/Logos/e1ec6555616573.598bbc0d77c6a.jpg" alt="Detalle 5">
+                <img src="assets/Logos/e1ec6555616573.598bbc0d77c6a.jpg" alt="Logo 5">
             </div>
 
             <div class="gallery-item">
-                <img src="/Users/smarket/Documents/Daniel/Portafolio/assets/Logos/07f25356599729.59b57a06cd9a5.jpg" alt="Detalle 6">
+                <img src="assets/Logos/07f25356599729.59b57a06cd9a5.jpg" alt="Logo 6">
             </div>
 
         </div>
@@ -72,7 +72,52 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-image');
+            const closeBtn = document.querySelector('.close-btn');
+
+            const openLightbox = (e) => {
+                e.preventDefault();
+                const src = e.target.src;
+                
+                lightboxImg.src = src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            };
+
+            if (galleryImages.length > 0) {
+                galleryImages.forEach(img => {
+                    img.addEventListener('click', openLightbox);
+                    img.style.cursor = 'pointer'; 
+                });
+            }
+
+            if(closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+            if(lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target !== lightboxImg) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
